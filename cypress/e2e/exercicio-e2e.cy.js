@@ -13,48 +13,19 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
   });
 
   it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => {
-    // Login
-    cy.visit('/minha-conta');
-    login.preencherLogin(perfil.usuario, perfil.senha);
-    login.submeterLogin();
-    login.validarLogin();
+  cy.visit('/minha-conta');
+  login.preencherLogin(perfil.usuario, perfil.senha);
+  login.submeterLogin();
+  login.validarLogin();
 
-    // Produto 1
-    cy.visit('produtos');
-    home.selecionarProduto('Abominable Hoodie');
-    produto.selecionarTamanho('L');
-    produto.selecionarCor('Blue');
-    produto.definirQuantidade(1);
-    produto.adicionarAoCarrinho();
+  produto.adicionarProduto('Abominable Hoodie', 'L', 'Blue', 1);
+  produto.adicionarProduto('Ajax Full-Zip Sweatshirt', 'S', 'Green', 1);
+  produto.adicionarProduto('Atlas Fitness Tank', 'M', 'Blue', 1);
+  produto.adicionarProduto('Apollo Running Short', '34', 'Black', 1);
+  produto.irParaCarrinho();
 
-    // Produto 2
-    cy.visit('produtos');
-    home.selecionarProduto('Ajax Full-Zip Sweatshirt');
-    produto.selecionarTamanho('S');
-    produto.selecionarCor('Green');
-    produto.definirQuantidade(1);
-    produto.adicionarAoCarrinho();
-
-    // Produto 3
-    cy.visit('produtos');
-    home.selecionarProduto('Atlas Fitness Tank');
-    produto.selecionarTamanho('M');
-    produto.selecionarCor('Blue');
-    produto.definirQuantidade(1);
-    produto.adicionarAoCarrinho();
-
-    // Produto 4
-    cy.visit('produtos');
-    home.selecionarProduto('Apollo Running Short');
-    produto.selecionarTamanho('34');
-    produto.selecionarCor('Black');
-    produto.definirQuantidade(1);
-    produto.adicionarAoCarrinho();
-    produto.irParaCarrinho();
-
-    // Checkout direto com dados já cadastrados
-    carrinho.irParaCheckout();
-    checkout.finalizarPedido();
-    checkout.validarConfirmacao();
-  });
+  carrinho.irParaCheckout();
+  checkout.finalizarPedido();
+  checkout.validarConfirmacao();
+});
 });

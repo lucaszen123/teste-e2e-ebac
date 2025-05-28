@@ -10,7 +10,7 @@ class ProdutoPage {
   definirQuantidade(qtd) {
     cy.get('.input-text.qty')
       .clear()
-      .type(qtd);
+      .type(`${qtd}`);
   }
 
   adicionarAoCarrinho() {
@@ -18,7 +18,22 @@ class ProdutoPage {
   }
 
   irParaCarrinho() {
-    cy.get('.woocommerce-message > .button').click()
+    cy.get('.woocommerce-message > .button').click();
+  }
+
+  validarMensagemDeSucesso(produto) {
+    cy.get('.woocommerce-message')
+      .should('contain.text', `“${produto}” foi adicionado no seu carrinho`);
+  }
+
+  adicionarProduto(nomeProduto, tamanho, cor, qtd) {
+    cy.visit('/produtos'); 
+    cy.contains(nomeProduto).click();
+    this.selecionarTamanho(tamanho);
+    this.selecionarCor(cor);
+    this.definirQuantidade(qtd);
+    this.adicionarAoCarrinho();
+    this.validarMensagemDeSucesso(nomeProduto);
   }
 }
 
